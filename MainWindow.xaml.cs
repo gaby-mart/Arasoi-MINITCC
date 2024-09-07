@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Arasoi.Tournament;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,13 @@ using System.Windows.Shapes;
 
 namespace Arasoi
 {
-    /// <summary>
-    /// Interação lógica para MainWindow.xam
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            TournamentView tournamentView = new TournamentView();
+            OriginCanvas.Children.Add(tournamentView.ActualCanvas);
         }
     }
 }
