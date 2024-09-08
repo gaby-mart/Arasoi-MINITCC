@@ -29,6 +29,8 @@ namespace Arasoi.Tournament
             {
                 ActualCanvas = CreateAndAddEmptyView();
             }
+
+            connection.Close();
         }
 
         public Canvas CreateAndAddEmptyView()

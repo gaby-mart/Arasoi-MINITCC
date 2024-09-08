@@ -1,0 +1,25 @@
+﻿<Window x:Class="Arasoi.Tournament.AddTournament"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Arasoi.Tournament"
+        mc:Ignorable="d"
+        Title="Registro de torneios" Height="500" Width="500" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <!-- Data to create a tournament -->
+        <Label Content="Nome do campeonato:" HorizontalAlignment="Center" Margin="0,140,0,0" VerticalAlignment="Top" Width="232"/>
+        <TextBox x:Name="TournamentNameTB" HorizontalAlignment="Center" Margin="0,171,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="232"/>
+        <Label Content="Filiação:" HorizontalAlignment="Center" Margin="0,194,0,0" VerticalAlignment="Top" Width="232"/>
+        <TextBox x:Name="FiliationTB" HorizontalAlignment="Center" Margin="0,225,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="232"/>
+        <Label Content="Começo:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="116" Margin="134,248,0,0" Height="30"/>
+        <Label Content="Fim:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="116" Margin="250,248,0,0" Height="30"/>
+        <DatePicker x:Name="DataPickerStart" HorizontalAlignment="Left" Margin="134,283,0,0" VerticalAlignment="Top" Width="116" Height="28"/>
+        <DatePicker x:Name="DataPickerEnd" HorizontalAlignment="Left" Margin="250,283,0,0" VerticalAlignment="Top" Width="116" Height="28"/>
+
+        <!-- Buttons to confirm or delete and close the window -->
+        <Button Content="Adicionar" HorizontalAlignment="Left" Margin="134,316,0,0" VerticalAlignment="Top" Width="116" Click="Add"/>
+        <Button Content="Excluir" HorizontalAlignment="Left" Margin="250,316,0,0" VerticalAlignment="Top" Width="116" Click="Close"/>
+
+    </Grid>
+</Window>

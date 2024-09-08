@@ -24,5 +24,11 @@ namespace Arasoi
             TournamentView tournamentView = new TournamentView();
             OriginCanvas.Children.Add(tournamentView.ActualCanvas);
         }
+
+        private void AddTournament(object sender, RoutedEventArgs e)
+        {
+            AddTournament addTournamentWindow = new AddTournament();
+            addTournamentWindow.Show();
+        }
     }
 }

@@ -6,6 +6,12 @@ cod_campeonato int (5) primary key,
 filiacao varchar (10),
 data date
 );
+
+-- Alterações necessárias 
+alter table campeonato add nome_campeonato varchar(20);
+alter table campeonato add data_inicio date;
+alter table campeonato add data_fim date;
+--
 desc campeonato;
 select *from campeonato;
 
