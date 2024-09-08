@@ -33,22 +33,21 @@ namespace Arasoi.Tournament
         {
             if(CheckInfo())
             {
-                /*
                 MySqlConnection connection = ConnectionFactory.GetConnection();
-                string stringCommand = "INSERT INTO campeonatos (cod_campeonato, filiacao, data_inicio, data_fim) " +
-                    "VALUES (@cod_campeonato, @filiacao, @data_inicio, @data_fim";
+                string stringCommand = "INSERT INTO campeonato (cod_campeonato, nome_campeonato, filiacao, data_inicio, data_fim) " +
+                    "VALUES (@cod_campeonato, @nome_campeonato, @filiacao, @data_inicio, @data_fim)";
                 MySqlCommand commandINSERT = new MySqlCommand(stringCommand, connection);
-                Incomplete code
-                commandINSERT.Parameters.AddWithValue("@cod_campeonato", );
                 
+                commandINSERT.Parameters.AddWithValue("@cod_campeonato", CodeTB.Text);
+                commandINSERT.Parameters.AddWithValue("@nome_campeonato", TournamentNameTB.Text);
                 commandINSERT.Parameters.AddWithValue("@filiacao", FiliationTB.Text);
                 commandINSERT.Parameters.AddWithValue("@data_inicio", DataPickerStart.SelectedDate.Value.ToString("yyyy-MM-dd"));
                 commandINSERT.Parameters.AddWithValue("@data_fim", DataPickerEnd.SelectedDate.Value.ToString("yyyy-MM-dd"));
 
                 commandINSERT.ExecuteNonQuery();
                 connection.Close();
-                */
-                MessageBox.Show("Enviado");
+
+                MessageBox.Show("Registrado!");
             }
             else
             {
@@ -62,7 +61,8 @@ namespace Arasoi.Tournament
             // Variablename'TB' means TextBox
             // Incomplete code
             // If something is false, return false. Returning false means that the function should NOT be executed.
-            return TournamentNameTB.Text.Trim() != "" 
+            return CodeTB.Text.Trim() != ""
+                && TournamentNameTB.Text.Trim() != "" 
                 && FiliationTB.Text.Trim() != "" 
                 && DataPickerStart.SelectedDate.HasValue 
                 && DataPickerEnd.SelectedDate.HasValue;

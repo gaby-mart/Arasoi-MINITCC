@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.IO.Pipelines;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace Arasoi.Tournament
 
             if (reader.HasRows)
             {
-                MessageBox.Show("!");
+                ActualCanvas = CreateAndAddView();
             }
             else 
             {
@@ -49,6 +50,47 @@ namespace Arasoi.Tournament
 
             canvas.Children.Add(textBlock);
 
+            return canvas;
+        }
+
+        public Canvas CreateAndAddView()
+        {
+            MySqlConnection connection = ConnectionFactory.GetConnection();
+            string stringCommand = "SELECT * FROM campeonato";
+            MySqlCommand commandSELECT = new MySqlCommand(stringCommand, connection);
+            MySqlDataReader reader = commandSELECT.ExecuteReader();
+
+            Canvas canvas = new Canvas();
+
+            StackPanel stackPanel = new StackPanel
+            {
+                Height = 505,
+                Width = 1920,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            while (reader.Read())
+            {
+                Canvas card = new Canvas
+                {
+                    Background = new SolidColorBrush(Colors.Red),
+                    Height = 100
+                };
+
+                Label label = new Label
+                {
+                    Content = reader["nome_campeonato"].ToString()
+                };
+
+                Canvas.SetLeft(label, 49);
+                Canvas.SetTop(label, 37);
+
+                card.Children.Add(label);
+                stackPanel.Children.Add(card);
+            }
+            
+            canvas.Children.Add(stackPanel);
             return canvas;
         }
     }

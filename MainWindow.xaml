@@ -5,14 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arasoi"
         mc:Ignorable="d"
-        Title="Arasoi" Height="720" Width="1280" WindowState="Maximized">
+        Title="Arasoi" Height="720" Width="1280">
     <Grid>
         <Canvas Margin="0,0,0,588">
             <Button Content="Torneio" HorizontalAlignment="Left" VerticalAlignment="Top" Height="114" Width="114"/>
         </Canvas>
-        
-        <Canvas x:Name="OriginCanvas"></Canvas>
-        
+
+        <Canvas x:Name="OriginCanvas" Margin="0,116,0,0">
+            
+        </Canvas>
+
         <Button Content="+" HorizontalAlignment="Left" Margin="1159,595,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="AddTournament"/>
 
     </Grid>
