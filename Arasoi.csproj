@@ -111,6 +111,7 @@
     <Compile Include="Tournament\AddTournament.xaml.cs">
       <DependentUpon>AddTournament.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tournament\CardTournament.cs" />
     <Compile Include="Tournament\TournamentView.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

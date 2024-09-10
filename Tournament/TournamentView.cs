@@ -17,21 +17,26 @@ namespace Arasoi.Tournament
         public Canvas ActualCanvas { set; get; }
         public TournamentView() 
         {
-            MySqlConnection connection = ConnectionFactory.GetConnection();
-            string stringCommand = "SELECT * FROM campeonato";
-            MySqlCommand commandSELECT = new MySqlCommand(stringCommand, connection);
-            MySqlDataReader reader = commandSELECT.ExecuteReader();
+            LoadView();
+        }
 
-            if (reader.HasRows)
+        public void LoadView()
+        {
+            using (MySqlConnection connection = ConnectionFactory.GetConnection()) 
             {
-                ActualCanvas = CreateAndAddView();
-            }
-            else 
-            {
-                ActualCanvas = CreateAndAddEmptyView();
-            }
+                try
+                {
+                    string stringCommand = "SELECT * FROM campeonato";
+                    MySqlCommand commandSELECT = new MySqlCommand(stringCommand, connection);
+                    MySqlDataReader reader = commandSELECT.ExecuteReader();
 
-            connection.Close();
+                    ActualCanvas = reader.HasRows ? CreateAndAddView(reader) : CreateAndAddEmptyView();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao carregar dados: " + ex.Message);
+                }
+            }
         }
 
         public Canvas CreateAndAddEmptyView()
@@ -53,13 +58,8 @@ namespace Arasoi.Tournament
             return canvas;
         }
 
-        public Canvas CreateAndAddView()
+        public Canvas CreateAndAddView(MySqlDataReader reader)
         {
-            MySqlConnection connection = ConnectionFactory.GetConnection();
-            string stringCommand = "SELECT * FROM campeonato";
-            MySqlCommand commandSELECT = new MySqlCommand(stringCommand, connection);
-            MySqlDataReader reader = commandSELECT.ExecuteReader();
-
             Canvas canvas = new Canvas();
 
             StackPanel stackPanel = new StackPanel
@@ -72,22 +72,9 @@ namespace Arasoi.Tournament
 
             while (reader.Read())
             {
-                Canvas card = new Canvas
-                {
-                    Background = new SolidColorBrush(Colors.Red),
-                    Height = 100
-                };
-
-                Label label = new Label
-                {
-                    Content = reader["nome_campeonato"].ToString()
-                };
-
-                Canvas.SetLeft(label, 49);
-                Canvas.SetTop(label, 37);
-
-                card.Children.Add(label);
-                stackPanel.Children.Add(card);
+                CardTournament cardTournament = new CardTournament();
+                cardTournament.CreateCard(reader["nome_campeonato"].ToString(), reader["cod_campeonato"].ToString());
+                stackPanel.Children.Add(cardTournament.canvas);
             }
             
             canvas.Children.Add(stackPanel);
