@@ -1,5 +1,4 @@
-﻿using Mysqlx.Crud;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,49 +11,51 @@ namespace Arasoi.Tournament
 {
     internal class CardTournament
     {
-        public Canvas canvas = null;
-        private TournamentView tournamentView = new TournamentView();
-
+        public Canvas Card;
+        private StackPanel ParentStackPanel;
         public CardTournament() { }
 
-        public Canvas CreateCard(string name, string cod)
+        public Canvas CreateCard(string name, StackPanel parentStackPanel)
         {
-            canvas = new Canvas
-            {
-                Background = new SolidColorBrush(Colors.AliceBlue),
-                Height = 90,
-                Width = 1280
-            };
+            ParentStackPanel = parentStackPanel;
 
-            Label label = new Label
+            Canvas card = new Canvas
             {
-                Content = name
+                Background = new SolidColorBrush(Colors.Red),
+                Height = 100
             };
-            Canvas.SetLeft(label, 48);
-            Canvas.SetTop(label, 32);
 
             Button button = new Button
             {
                 Content = "Deletar"
             };
-            button.Click += new RoutedEventHandler(Delete);
-            Canvas.SetLeft(button, 1);
-            Canvas.SetTop(button, 1);
+            button.Click += Delete; 
 
-            canvas.Children.Add(label);
-            canvas.Children.Add(button);
+            Canvas.SetLeft(button, 125); 
+            Canvas.SetTop(button, 10);
 
-            return canvas;
-        }
-        
-        public void Delete(object sender, RoutedEventArgs e)
-        {
-            if (canvas != null && canvas.Parent is StackPanel parentStackPanel)
+            Label label = new Label
             {
-                parentStackPanel.Children.Remove(canvas);
-            }
+                Content = name
+            };
 
-            tournamentView.LoadView();
+            Canvas.SetLeft(label, 49);
+            Canvas.SetTop(label, 37);
+
+            card.Children.Add(button);
+            card.Children.Add(label);
+            return card;
+        }
+
+        private void Delete(object sender, RoutedEventArgs e)
+        {
+            if (ParentStackPanel != null)
+            {
+                if (sender is Button button && button.Parent is Canvas buttonParentCanvas)
+                {
+                    ParentStackPanel.Children.Remove(buttonParentCanvas);
+                }
+            }
         }
     }
 }

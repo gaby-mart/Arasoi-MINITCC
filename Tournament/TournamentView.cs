@@ -17,26 +17,14 @@ namespace Arasoi.Tournament
         public Canvas ActualCanvas { set; get; }
         public TournamentView() 
         {
-            LoadView();
-        }
+            MySqlConnection connection = ConnectionFactory.GetConnection();
+            string stringCommand = "SELECT * FROM campeonato";
+            MySqlCommand commandSELECT = new MySqlCommand(stringCommand, connection);
+            MySqlDataReader reader = commandSELECT.ExecuteReader();
 
-        public void LoadView()
-        {
-            using (MySqlConnection connection = ConnectionFactory.GetConnection()) 
-            {
-                try
-                {
-                    string stringCommand = "SELECT * FROM campeonato";
-                    MySqlCommand commandSELECT = new MySqlCommand(stringCommand, connection);
-                    MySqlDataReader reader = commandSELECT.ExecuteReader();
+            ActualCanvas = reader.HasRows ? CreateAndAddView(reader) : CreateAndAddEmptyView();
 
-                    ActualCanvas = reader.HasRows ? CreateAndAddView(reader) : CreateAndAddEmptyView();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao carregar dados: " + ex.Message);
-                }
-            }
+            connection.Close();
         }
 
         public Canvas CreateAndAddEmptyView()
@@ -73,8 +61,8 @@ namespace Arasoi.Tournament
             while (reader.Read())
             {
                 CardTournament cardTournament = new CardTournament();
-                cardTournament.CreateCard(reader["nome_campeonato"].ToString(), reader["cod_campeonato"].ToString());
-                stackPanel.Children.Add(cardTournament.canvas);
+                Canvas card = cardTournament.CreateCard(reader["nome_campeonato"].ToString(), stackPanel);
+                stackPanel.Children.Add(card);
             }
             
             canvas.Children.Add(stackPanel);
