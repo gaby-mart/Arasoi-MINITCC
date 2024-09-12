@@ -53,6 +53,8 @@ namespace Arasoi.Tournament
             {
                 MessageBox.Show("Faltam informações!");
             }
+
+            TournamentView tournamentView = new TournamentView();
         }
 
         // check if something is missing

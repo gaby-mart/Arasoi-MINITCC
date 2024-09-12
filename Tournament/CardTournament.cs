@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Arasoi.DatabaseManagement;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,11 +15,13 @@ namespace Arasoi.Tournament
     {
         public Canvas Card;
         private StackPanel ParentStackPanel;
+        private string Id;
         public CardTournament() { }
 
-        public Canvas CreateCard(string name, StackPanel parentStackPanel)
+        public Canvas CreateCard(string name, string id, StackPanel parentStackPanel)
         {
             ParentStackPanel = parentStackPanel;
+            Id = id;
 
             Canvas card = new Canvas
             {
@@ -49,13 +53,13 @@ namespace Arasoi.Tournament
 
         private void Delete(object sender, RoutedEventArgs e)
         {
-            if (ParentStackPanel != null)
-            {
-                if (sender is Button button && button.Parent is Canvas buttonParentCanvas)
-                {
-                    ParentStackPanel.Children.Remove(buttonParentCanvas);
-                }
-            }
+            MySqlConnection connection = ConnectionFactory.GetConnection();
+            string command = "DELETE FROM campeonato WHERE cod_campeonato = @cod_campeonato";
+            MySqlCommand commandDELETE = new MySqlCommand(command, connection);
+            commandDELETE.Parameters.AddWithValue("@cod_campeonato", Id);
+            commandDELETE.ExecuteNonQuery();
+
+            TournamentView tournamentView = new TournamentView();
         }
     }
 }

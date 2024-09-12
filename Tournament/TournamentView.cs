@@ -17,14 +17,32 @@ namespace Arasoi.Tournament
         public Canvas ActualCanvas { set; get; }
         public TournamentView() 
         {
-            MySqlConnection connection = ConnectionFactory.GetConnection();
-            string stringCommand = "SELECT * FROM campeonato";
-            MySqlCommand commandSELECT = new MySqlCommand(stringCommand, connection);
-            MySqlDataReader reader = commandSELECT.ExecuteReader();
+            LoadView();
+        }
 
-            ActualCanvas = reader.HasRows ? CreateAndAddView(reader) : CreateAndAddEmptyView();
+        public void LoadView()
+        {
+            if (ActualCanvas != null) ActualCanvas.Children.Clear();
 
-            connection.Close();
+            using (MySqlConnection connection = ConnectionFactory.GetConnection())
+            {
+                try
+                {
+                    string stringCommand = "SELECT * FROM campeonato";
+                    MySqlCommand commandSELECT = new MySqlCommand(stringCommand, connection);
+
+                    using (MySqlDataReader reader = commandSELECT.ExecuteReader())
+                    {
+                        ActualCanvas = reader.HasRows ? CreateAndAddView(reader) : CreateAndAddEmptyView();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao carregar os dados: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
+            MessageBox.Show("Bora bill!!");
         }
 
         public Canvas CreateAndAddEmptyView()
@@ -61,7 +79,7 @@ namespace Arasoi.Tournament
             while (reader.Read())
             {
                 CardTournament cardTournament = new CardTournament();
-                Canvas card = cardTournament.CreateCard(reader["nome_campeonato"].ToString(), stackPanel);
+                Canvas card = cardTournament.CreateCard(reader["nome_campeonato"].ToString(), reader["cod_campeonato"].ToString(), stackPanel);
                 stackPanel.Children.Add(card);
             }
             
