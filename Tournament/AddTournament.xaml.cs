@@ -48,13 +48,14 @@ namespace Arasoi.Tournament
                 connection.Close();
 
                 MessageBox.Show("Registrado!");
+
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
             }
             else
             {
                 MessageBox.Show("Faltam informações!");
             }
-
-            TournamentView tournamentView = new TournamentView();
         }
 
         // check if something is missing

@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arasoi"
         mc:Ignorable="d"
-        Title="Arasoi" Height="720" Width="1280">
-    <Grid>
+        Title="Arasoi" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
+    <Grid x:Name="MyGrid">
         <Canvas Margin="0,0,0,588">
             <Button Content="Torneio" HorizontalAlignment="Left" VerticalAlignment="Top" Height="114" Width="114"/>
         </Canvas>

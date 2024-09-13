@@ -59,7 +59,8 @@ namespace Arasoi.Tournament
             commandDELETE.Parameters.AddWithValue("@cod_campeonato", Id);
             commandDELETE.ExecuteNonQuery();
 
-            TournamentView tournamentView = new TournamentView();
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
         }
     }
 }

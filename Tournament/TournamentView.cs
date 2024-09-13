@@ -1,7 +1,9 @@
 ﻿using Arasoi.DatabaseManagement;
+using Arasoi;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO.Pipelines;
 using System.Linq;
 using System.Text;
@@ -14,7 +16,7 @@ namespace Arasoi.Tournament
 {
     internal class TournamentView
     {
-        public Canvas ActualCanvas { set; get; }
+        public Canvas ActualCanvas { get; set; }
         public TournamentView() 
         {
             LoadView();
@@ -41,8 +43,6 @@ namespace Arasoi.Tournament
                     MessageBox.Show($"Erro ao carregar os dados: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-
-            MessageBox.Show("Bora bill!!");
         }
 
         public Canvas CreateAndAddEmptyView()
